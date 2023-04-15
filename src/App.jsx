@@ -35,14 +35,10 @@ function App() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
-
         navigate("/");
         console.log("Signed out successfully");
       })
-      .catch((error) => {
-        // An error happened.
-      });
+      .catch((error) => {});
   };
 
   function changingSearchData(e) {

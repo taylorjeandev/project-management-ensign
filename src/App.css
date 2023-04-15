@@ -1,21 +1,34 @@
-* {
-  box-sizing: border-box;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+}
 #root {
   margin: 0 auto;
   text-align: center;
+  height: 100%;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
 .container {
-  display: flex;
-  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
 }
 .login-container {
+  margin: 0;
+  height: 100vh;
+  width: 100wh;
   display: flex;
 }
 h1 {
   font-size: 40px;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -34,7 +47,6 @@ h1 {
 .navbar {
   background-color: #101c64;
   height: 100px;
-  border-radius: 10px;
   border-bottom: 2px solid #333;
 }
 
@@ -58,7 +70,8 @@ img {
   background-color: #101c64;
   background-size: cover;
   flex: 1;
-  background-size: cover;
+  background-image: url(public/background-overlay.jpg);
+  background-blend-mode: overlay;
 }
 
 .form {
@@ -130,22 +143,26 @@ img {
   margin: 20px;
 }
 
-.image-section {
-  column-width: 30px;
-  column-gap: 5px;
-  padding: 100px;
-}
-
-.grid-images {
-  max-width: 100%;
-  max-height: 100%;
-}
-
 @media (max-width: 800px) {
   .login-background {
     display: none;
   }
   .login-container {
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 970px) {
+  .card {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    flex-direction: column;
+    align-items: center;
   }
 }

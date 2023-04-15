@@ -1,9 +1,7 @@
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase";
-import { Flex, Box, Heading, Spacer, Button, Text } from "@chakra-ui/react";
+import { Flex, Box, Heading, Spacer, Button } from "@chakra-ui/react";
 
-export default function Navbar({ handleLogout, user }) {
+export default function Navbar({ handleLogout }) {
   return (
     <Flex className="navbar" minWidth="max-content" alignItems="center" gap="2">
       <Box p="2">

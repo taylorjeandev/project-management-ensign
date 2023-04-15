@@ -8,7 +8,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Container,
+  // Container,
 } from "@chakra-ui/react";
 import StaggeredImage from "./StaggeredImage";
 
@@ -23,16 +23,13 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         navigate("/dashboard");
-        console.log(user);
       })
       .catch((error) => {
         setError(error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
       });
   };
 
@@ -45,11 +42,10 @@ const Login = () => {
 
   const isError = error ? "Email and password are required" : "";
   return (
-    <Container maxW="1200px" className="login-container">
+    <div className="login-container">
       <div className="login-background">
         <StaggeredImage />
       </div>
-
       <div className="form">
         <h2>Login to your account</h2>
         <FormControl m={2} isRequired onSubmit={onLogin}>
@@ -67,7 +63,6 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-
           <div>
             <FormLabel m={2} htmlFor="password">
               Password
@@ -99,7 +94,7 @@ const Login = () => {
           </Link>
         </p>
       </div>
-    </Container>
+    </div>
   );
 };
 

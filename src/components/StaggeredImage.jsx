@@ -4,13 +4,15 @@ import img3 from "../assets/img3.png";
 import img4 from "../assets/img4.png";
 import img5 from "../assets/img5.png";
 import img6 from "../assets/img6.png";
+import backgroundImg from "/background-overlay.jpg";
 import { Image, Box } from "@chakra-ui/react";
 
 const StaggeredImage = () => {
   const images = [img1, img2, img3, img4, img5, img6];
   return (
     <section className="image-section">
-      <Image
+      {/* <Image objectFit="cover" src={backgroundImg} /> */}
+      {/* <Image
         boxSize="100px"
         objectFit="cover"
         className="grid-images"
@@ -45,7 +47,7 @@ const StaggeredImage = () => {
         objectFit="cover"
         className="grid-images"
         src={images[5]}
-      />
+      /> */}
     </section>
   );
 };
