@@ -70,7 +70,7 @@ img {
   background-color: #101c64;
   background-size: cover;
   flex: 1;
-  background-image: url(public/background-overlay.jpg);
+  background-image: url(src/assets/background-overlay.jpg);
   background-blend-mode: overlay;
 }
 

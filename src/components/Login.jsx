@@ -8,9 +8,7 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  // Container,
 } from "@chakra-ui/react";
-import StaggeredImage from "./StaggeredImage";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,9 +41,7 @@ const Login = () => {
   const isError = error ? "Email and password are required" : "";
   return (
     <div className="login-container">
-      <div className="login-background">
-        <StaggeredImage />
-      </div>
+      <div className="login-background"></div>
       <div className="form">
         <h2>Login to your account</h2>
         <FormControl m={2} isRequired onSubmit={onLogin}>
