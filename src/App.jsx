@@ -1,3 +1,4 @@
+require("dotenv").config();
 import { useState, useEffect } from "react";
 import "./App.css";
 import Signup from "./components/Signup";
