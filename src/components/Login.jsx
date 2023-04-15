@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { Link, useNavigate } from "react-router-dom";
@@ -8,13 +8,15 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
+  Container,
 } from "@chakra-ui/react";
+import StaggeredImage from "./StaggeredImage";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const onLogin = (e) => {
     console.log(e);
@@ -27,6 +29,7 @@ const Login = () => {
         console.log(user);
       })
       .catch((error) => {
+        setError(error.message);
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
@@ -40,12 +43,19 @@ const Login = () => {
     }
   }
 
+  const isError = error ? "Email and password are required" : "";
   return (
-    <>
-      <main className="form">
-        <FormControl m={2} maxW="350px" isRequired onSubmit={onLogin}>
+    <Container maxW="1200px" className="login-container">
+      <div className="login-background">
+        <StaggeredImage />
+      </div>
+
+      <div className="form">
+        <h2>Login to your account</h2>
+        <FormControl m={2} isRequired onSubmit={onLogin}>
           <div>
             <FormLabel htmlFor="email-address">Email address</FormLabel>
+            {error ? <FormErrorMessage>{error}</FormErrorMessage> : null}
             <Input
               m={1}
               id="loginEmailAddress"
@@ -74,7 +84,7 @@ const Login = () => {
               onKeyDown={(e) => handleKeyPress(e)}
             />
           </div>
-
+          <div>{isError}</div>
           <div>
             <Button color="black" m={6} onClick={onLogin}>
               Login
@@ -88,8 +98,8 @@ const Login = () => {
             <span className="bold">Sign up</span>
           </Link>
         </p>
-      </main>
-    </>
+      </div>
+    </Container>
   );
 };
 

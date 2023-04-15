@@ -1,10 +1,8 @@
-require("dotenv").config();
 import { useState, useEffect } from "react";
 import "./App.css";
-import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
-import Navbar from "./components/Navbar";
+import SingleProject from "./components/SingleProject";
 import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 import { auth } from "./firebase";
@@ -14,6 +12,8 @@ import { getDatabase, ref, child, get } from "firebase/database";
 function App() {
   const [user, loading, error] = useAuthState(auth);
   const [projects, setProjects] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -21,12 +21,11 @@ function App() {
         const db = getDatabase();
         const uid = user.uid;
 
-        get(child(ref(getDatabase()), `users/${uid}/projects`)).then(
-          (snapshot) => {
-            const data = snapshot.val();
-            setProjects(Object.values(data));
-          }
-        );
+        get(child(ref(getDatabase()), `users/${uid}`)).then((snapshot) => {
+          const data = snapshot.val();
+          setProjects(Object.values(data));
+          console.log(uid);
+        });
       } else {
         console.log("user is logged out");
       }
@@ -37,6 +36,7 @@ function App() {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+
         navigate("/");
         console.log("Signed out successfully");
       })
@@ -44,13 +44,36 @@ function App() {
         // An error happened.
       });
   };
+
+  function changingSearchData(e) {
+    setSearchValue(e.target.value);
+  }
+
+  const projectFilter = projects.filter((project) =>
+    project.name.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
   return (
-    <div className="App">
-      <Navbar handleLogout={handleLogout} />
+    <div className="container">
       <Routes>
         <Route path="/" element={<Login user={user} />} />
-        <Route path="/signup" element={<Signup user={user} />} />
-        <Route path="/dashboard" element={<Dashboard projects={projects} />} />
+        <Route
+          path=":id"
+          element={<SingleProject projects={projects} user={user} />}
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <Dashboard
+              projects={projects}
+              handleLogout={handleLogout}
+              user={user}
+              changingSearchData={changingSearchData}
+              projectFilter={projectFilter}
+              searchValue={searchValue}
+            />
+          }
+        />
       </Routes>
     </div>
   );

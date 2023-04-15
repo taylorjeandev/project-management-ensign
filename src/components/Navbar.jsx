@@ -1,30 +1,22 @@
-import { Link, useLocation } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { Link } from "react-router-dom";
 import { auth } from "../firebase";
-import { Button } from "@chakra-ui/react";
+import { Flex, Box, Heading, Spacer, Button, Text } from "@chakra-ui/react";
 
-export default function Navbar({ handleLogout }) {
-  const [user, loading, error] = useAuthState(auth);
-  const location = useLocation();
-
+export default function Navbar({ handleLogout, user }) {
   return (
-    <Flex className="navbar" justify="space-around">
-      <Box as="li">
-        <Button>
-          <Link to={"/"}>Login</Link>
-        </Button>
+    <Flex className="navbar" minWidth="max-content" alignItems="center" gap="2">
+      <Box p="2">
+        <Heading size="md" className="h1">
+          <Link to={"/dashboard"}>BP</Link>
+        </Heading>
       </Box>
-      {/* <Box>
-        {user ? null : location.pathname ===
-          "/signup" ? null : location.pathname ===
-          "/login" ? null : location.pathname === "/" ? null : (
-          <Link to={"/signup"}>Signup</Link>
-        )}
-      </Box> */}
-      <Box as="li">
-        <Button onClick={handleLogout}>Logout</Button>
-      </Box>
+      <Spacer />
+      {/* <Text color={"whitesmoke"}></Text> */}
+      <Button className="logout" onClick={handleLogout}>
+        {" "}
+        Logout{" "}
+      </Button>
     </Flex>
   );
 }
