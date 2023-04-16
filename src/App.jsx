@@ -9,7 +9,7 @@ import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 import { auth } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
@@ -23,15 +23,14 @@ function App() {
         const db = getDatabase();
         const uid = user.uid;
 
-        get(child(ref(getDatabase()), `users/${uid}`)).then((snapshot) => {
+        const dbref = ref(db, `users/${uid}`);
+        onValue(dbref, (snapshot) => {
           const data = snapshot.val();
           if (data) {
             setProjects(Object.values(data));
           } else {
             setProjects([]);
           }
-
-          console.log(uid);
         });
       } else {
         console.log("user is logged out");
