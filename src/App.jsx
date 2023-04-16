@@ -3,6 +3,8 @@ import "./App.css";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import SingleProject from "./components/SingleProject";
+import Signup from "./components/Signup";
+import AddProject from "./components/AddProject";
 import { Route, Routes, Outlet, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 import { auth } from "./firebase";
@@ -23,7 +25,12 @@ function App() {
 
         get(child(ref(getDatabase()), `users/${uid}`)).then((snapshot) => {
           const data = snapshot.val();
-          setProjects(Object.values(data));
+          if (data) {
+            setProjects(Object.values(data));
+          } else {
+            setProjects([]);
+          }
+
           console.log(uid);
         });
       } else {
@@ -53,6 +60,8 @@ function App() {
     <div className="container">
       <Routes>
         <Route path="/" element={<Login user={user} />} />
+        <Route path="/signup" element={<Signup />} />
+
         <Route
           path=":id"
           element={<SingleProject projects={projects} user={user} />}
@@ -70,6 +79,7 @@ function App() {
             />
           }
         />
+        <Route path="/add-project" element={<AddProject user={user} />} />
       </Routes>
     </div>
   );

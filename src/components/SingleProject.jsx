@@ -4,14 +4,16 @@ import { Text } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 export default function SingleProduct({ projects, user }) {
   const { id } = useParams();
+  console.log(projects);
   return (
     <>
       <Navbar />
-      {/* <Link to={"/dashboard"}>
-        <Text>Go Back</Text>
-      </Link> */}
       <div className="single-project">
-        <img src={projects[id].image} alt="" />
+        {projects[id].image ? (
+          <img src={projects[id].image} alt="" />
+        ) : (
+          <img src={projects[i]} alt="" />
+        )}
         <h2>{projects[id].name}</h2>
         <span>{projects[id].detail1}</span>
         <span>{projects[id].detail2}</span>
