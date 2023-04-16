@@ -1,5 +1,7 @@
 This is a React app that utilizes several technologies including React, React Router DOM, Chakra UI, Firebase Database, and Authentication. The app allows users to create and manage their accounts, and create projects.
 
+Live Deployment at: https://project-management-ensign.vercel.app/
+
 Setup and Installation
 Clone the repository from GitHub using git clone https://github.com/taylorjeandev/project-management-ensign
 Navigate to the project directory using cd repo
