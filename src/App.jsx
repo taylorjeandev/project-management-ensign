@@ -22,9 +22,8 @@ function App() {
       if (user) {
         const db = getDatabase();
         const uid = user.uid;
-
-        const dbref = ref(db, `users/${uid}`);
-        onValue(dbref, (snapshot) => {
+        const projectsRef = ref(db, "users/" + uid);
+        onValue(projectsRef, (snapshot) => {
           const data = snapshot.val();
           if (data) {
             setProjects(Object.values(data));
@@ -51,9 +50,11 @@ function App() {
     setSearchValue(e.target.value);
   }
 
-  const projectFilter = projects.filter((project) =>
-    project.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const projectFilter =
+    projects &&
+    projects.filter((project) =>
+      project.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
 
   return (
     <div className="container">

@@ -12,7 +12,6 @@ const Dashboard = ({
   projectFilter,
   searchValue,
 }) => {
-  console.log(projects);
   return (
     <div>
       <Navbar handleLogout={handleLogout} user={user} />
